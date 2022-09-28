@@ -12,7 +12,7 @@ serverSocket = socket(AF_INET, SOCK_STREAM)
 serverSocket.bind(('', serverPort))
 
 serverSocket.listen(1)
-print("The web server is up on port: " + serverPort)
+print("The web server is up on port: ", serverPort)
 while True:
     print("Ready to serve ")
     connectionSocket, addr = serverSocket.accept()
