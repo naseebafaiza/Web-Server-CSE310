@@ -1,7 +1,3 @@
-# ProxyServer.py
-# Author: Sean Watson
-# Date Oct 8, 2012
-
 from socket import *
 import sys
 
