@@ -17,19 +17,26 @@ while True:
     print("Ready to serve ")
     connectionSocket, addr = serverSocket.accept()
     try:
-        message = connect.recv(1024)
+        # reads incoming http request and stores in message. 
+        # For example "GET /index.html HTTP/1.1"
+        message = connectionSocket.recv(2048)
+        # splits message by space and gets second element "/index.html"
         filename = message.split()[1]
+        # tries to open the file, if file isn't found an exception is thrown
         f = open(filename[1:])
+        # reads the file content
         outputdata = f.read()
         print(outputdata)
         # send one HTTP header line into the socket
-        connectionSocket.send("\nHTTP/1.1 200 OK\n\n".encode())
+        res = "HTTP/1.1 200 OK\n\n" + outputdata
+        # sends data back encoded in binary
+        connectionSocket.send(res.encode()) 
         connectionSocket.close()
     except IOError:
         # 404 msg
-        connectionSocket.send("\nHTTP/1.1 404 Not Found\n\n".encode())
+        connectionSocket.send("HTTP/1.1 404 Not Found\n\n404 Not Found".encode())
         connectionSocket.close()
-serverSocket.close()
+
 
 
 
